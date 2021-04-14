@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 
-class AddTaskScreen extends StatelessWidget {
+class AddTaskScreen extends StatefulWidget {
+  final Function onAdd;
+
+  const AddTaskScreen({this.onAdd});
+
+  @override
+  _AddTaskScreenState createState() => _AddTaskScreenState();
+}
+
+class _AddTaskScreenState extends State<AddTaskScreen> {
+  String title = '';
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,13 +37,18 @@ class AddTaskScreen extends StatelessWidget {
                     BorderSide(color: Colors.lightBlueAccent, width: 5.0),
               ),
             ),
-            onChanged: (value) {},
+            onChanged: (value) {
+              title = value;
+            },
           ),
           SizedBox(
             height: 10,
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              widget.onAdd(title);
+              Navigator.pop(context);
+            },
             style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
