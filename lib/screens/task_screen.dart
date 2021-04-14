@@ -26,11 +26,7 @@ class _TaskScreenState extends State<TaskScreen> {
               ),
             ),
             context: context,
-            builder: (context) => AddTaskScreen(
-              addTaskCallback: (String text) {
-                Provider.of<Data>(context).addTask(text);
-              },
-            ),
+            builder: (context) => AddTaskScreen(),
           );
         },
         backgroundColor: Colors.lightBlueAccent,
