@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey/provider/task_provider.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  final Function onAdd;
+  final Function addTaskCallback;
 
-  AddTaskScreen({this.onAdd});
+  AddTaskScreen({this.addTaskCallback});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,8 @@ class AddTaskScreen extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              onAdd(title);
+              //print(title);
+              Provider.of<Data>(context, listen: false).addTask(title);
               Navigator.pop(context);
             },
             style: ButtonStyle(

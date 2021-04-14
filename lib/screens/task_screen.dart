@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoey/components/task_list.dart';
 import 'package:todoey/models/task.dart';
+import 'package:todoey/provider/task_provider.dart';
 
 import 'add_task_screen.dart';
 
@@ -10,15 +12,6 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  List<Task> _tasks = [];
-
-  void addTask(String text) {
-    Task newTask = Task(title: text);
-    setState(() {
-      _tasks.add(newTask);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,14 +19,19 @@ class _TaskScreenState extends State<TaskScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20.0),
-                  topRight: Radius.circular(20.0),
-                ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
               ),
-              context: context,
-              builder: (context) => AddTaskScreen(onAdd: addTask));
+            ),
+            context: context,
+            builder: (context) => AddTaskScreen(
+              addTaskCallback: (String text) {
+                Provider.of<Data>(context).addTask(text);
+              },
+            ),
+          );
         },
         backgroundColor: Colors.lightBlueAccent,
         child: Icon(Icons.add),
@@ -71,7 +69,7 @@ class _TaskScreenState extends State<TaskScreen> {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  '12 Tasks',
+                  '${Provider.of<Data>(context).tasks.length} Tasks',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -90,7 +88,7 @@ class _TaskScreenState extends State<TaskScreen> {
                 ),
                 color: Colors.white,
               ),
-              child: TaskList(_tasks),
+              child: TaskList(Provider.of<Data>(context).tasks),
             ),
           )
         ],
