@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoey/components/task_tile.dart';
 import '../models/task.dart';
 
 class TaskList extends StatefulWidget {
@@ -16,22 +17,12 @@ class _TaskListState extends State<TaskList> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: _tasks
-          .map((Task e) => CheckboxListTile(
-              activeColor: Colors.lightBlueAccent,
-              title: Text(
-                e.title,
-                style: TextStyle(
-                  decoration: e.isDone ? TextDecoration.lineThrough : null,
-                ),
+        children: _tasks
+            .map(
+              (Task e) => TaskTile(
+                task: e,
               ),
-              value: e.isDone,
-              onChanged: (bool value) {
-                setState(() {
-                  e.isDone = value;
-                });
-              }))
-          .toList(),
-    );
+            )
+            .toList());
   }
 }
