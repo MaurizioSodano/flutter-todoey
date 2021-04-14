@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 
-class AddTaskScreen extends StatefulWidget {
+class AddTaskScreen extends StatelessWidget {
   final Function onAdd;
 
-  const AddTaskScreen({this.onAdd});
-
-  @override
-  _AddTaskScreenState createState() => _AddTaskScreenState();
-}
-
-class _AddTaskScreenState extends State<AddTaskScreen> {
-  String title = '';
+  AddTaskScreen({this.onAdd});
 
   @override
   Widget build(BuildContext context) {
+    String title = '';
+
     return Container(
       padding: EdgeInsets.only(top: 20, left: 20, right: 20),
       child: Column(
@@ -22,7 +17,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           Text(
             'Add Task',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 30, color: Colors.black),
+            style: TextStyle(fontSize: 30, color: Colors.lightBlueAccent),
           ),
           TextField(
             autofocus: true,
@@ -46,7 +41,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           ),
           TextButton(
             onPressed: () {
-              widget.onAdd(title);
+              onAdd(title);
               Navigator.pop(context);
             },
             style: ButtonStyle(

@@ -10,11 +10,7 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  List<Task> _tasks = [
-    Task(title: "Hello World 1"),
-    Task(title: "Hello world 2"),
-    Task(title: "Hello world 3")
-  ];
+  List<Task> _tasks = [];
 
   void addTask(String text) {
     Task newTask = Task(title: text);
@@ -37,7 +33,7 @@ class _TaskScreenState extends State<TaskScreen> {
                 ),
               ),
               context: context,
-              builder: (context) => AddTaskScreen(onAdd:addTask));
+              builder: (context) => AddTaskScreen(onAdd: addTask));
         },
         backgroundColor: Colors.lightBlueAccent,
         child: Icon(Icons.add),
