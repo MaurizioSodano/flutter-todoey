@@ -16,13 +16,13 @@ class _TaskListState extends State<TaskList> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-        children: _tasks
-            .map(
-              (Task e) => TaskTile(
-                task: e,
-              ),
-            )
-            .toList());
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return TaskTile(
+          task: _tasks[index],
+        );
+      },
+      itemCount: _tasks.length,
+    );
   }
 }
