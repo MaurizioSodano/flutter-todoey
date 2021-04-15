@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:todoey/models/task.dart';
 
-class TaskTile extends StatefulWidget {
+class TaskTile extends StatelessWidget {
   final Task task;
+  final Function onCheck;
+  final Function onPress;
+  final Function onLongPress;
+  TaskTile(
+      {@required this.task,
+      @required this.onCheck,
+      @required this.onPress,
+      @required this.onLongPress});
 
-  const TaskTile({this.task});
-
-  @override
-  _TaskTileState createState() => _TaskTileState();
-}
-
-class _TaskTileState extends State<TaskTile> {
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
-        activeColor: Colors.lightBlueAccent,
-        title: Text(
-          widget.task.title,
+      activeColor: Colors.lightBlueAccent,
+      title: TextButton(
+        onPressed: onPress,
+        onLongPress: onLongPress,
+        child: Text(
+          task.title,
           style: TextStyle(
-            decoration: widget.task.isDone ? TextDecoration.lineThrough : null,
+            decoration: task.isDone ? TextDecoration.lineThrough : null,
           ),
         ),
-        value: widget.task.isDone,
-        onChanged: (bool value) {
-          setState(() {
-            widget.task.isDone = value;
-          });
-        });
+      ),
+      value: task.isDone,
+      onChanged: onCheck,
+    );
   }
 }
